@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    environment:
+    - APACHE_RUN_USER=#1000
+    build:
+      context: ./apache
+    ports:
+    - 8000:80
+    volumes:
+    - ../html:/var/www/html
+
+  database:
+    image: mariadb
+    restart: always
+    ports:
+    - 33061:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+    volumes:
+      - ./docker/database:/var/lib/mysql
